@@ -2,8 +2,8 @@ var ReactDOM = require('react-dom');
 var React = require('react');
 var $ = require('jQuery');
 
-var Title = require('./src/components/Title.js');
-var Home = require('./src/components/Home/Home.js');
+var Title = require('./src/components/Title.jsx');
+var Home = require('./src/components/Home/Home.jsx');
 
 var App = React.createClass({
   getInitialState: function(){

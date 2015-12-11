@@ -1,11 +1,12 @@
 // Created Home component so that input fields or other features could be added later
+
 var React = require('react');
-var IssueFeed = require('./IssueFeed.js');
+var IssueFeed = require('./IssueFeed.jsx');
 
 var Home = React.createClass({
 
   render: function(){ 
-    // use bootstrap grid 
+    // TODO: use bootstrap grid 
     return (
       <div>
         < IssueFeed issues={this.props.issues}/>

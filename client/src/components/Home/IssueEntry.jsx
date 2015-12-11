@@ -4,7 +4,12 @@ var IssueEntry = React.createClass({
   render: function(){
     return (
       <li className='issue-entry'>
-        {this.props.issue.name}!
+        <span className='issue-number'>#{this.props.issue.number}</span>
+        <span className='issue-title'>{this.props.issue.title}</span>
+        <ul className='issue-labels'>
+          
+          {this.props.issue.number}
+        </ul>
       </li>
     )
   }

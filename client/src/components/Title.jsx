@@ -4,7 +4,7 @@ var Title = React.createClass({
 
   render: function(){
     return (
-      <div>
+      <div className='title-container'>
         <h1>
           Hello !
         </h1>
