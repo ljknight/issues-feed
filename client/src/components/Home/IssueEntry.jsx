@@ -1,47 +1,112 @@
 var React = require('react');
 
 var IssueEntry = React.createClass({
+  
   render: function(){
+
+    var issue = this.props.issue;
     return (
-      <li className='issue-entry'>
-        <span className='issue-number'>#{this.props.issue.number}</span>
-        <span className='issue-title'>{this.props.issue.title}</span>
-        <ul className='issue-labels'>
-          
-          {this.props.issue.number}
-        </ul>
+      <li className='issuefeed-entry'>
+        <IssueNumber issue={issue} />
+        <IssueTitle issue={issue}/>
+        <IssueLabels issue={issue}/>
+        <IssueUsername issue={issue} />
+        <IssueAvatar issue={issue} />
+        <IssueSummary issue={issue} />
       </li>
     )
   }
 });
 
-// var Avatar = React.createClass({
-//   render: function() {
-//     return (
-//       <div>
-//         <ProfilePic username={this.props.username} />
-//         <ProfileLink username={this.props.username} />
-//       </div>
-//     );
-//   }
-// });
+var IssueNumber = React.createClass({
+  
+  render: function() {
+    return (
+      <span className='issuefeed-number'>#{this.props.issue.number}</span>
+    )
+  }
+});
 
-// var ProfilePic = React.createClass({
-//   render: function() {
-//     return (
-//       <img src={'https://graph.facebook.com/' + this.props.username + '/picture'} />
-//     );
-//   }
-// });
+var IssueTitle = React.createClass({
+  
+  render: function() {
+    return (
+      <span className='issuefeed-title'>{this.props.issue.title}</span>
+    )
+  }
+});
 
-// var ProfileLink = React.createClass({
-//   render: function() {
-//     return (
-//       <a href={'https://www.facebook.com/' + this.props.username}>
-//         {this.props.username}
-//       </a>
-//     );
-//   }
-// });
+// TODO: add label colors
+
+var IssueLabels = React.createClass({
+  
+  render: function() {
+    var labels = this.props.issue.labels;
+
+    return (
+      <ul className='issuefeed-labels'>
+        {labels.map(function(label) {
+          return <li key={label.id}>{label.name}</li>
+        })}
+      </ul>
+    )
+  }
+});
+
+var IssueUsername = React.createClass({
+
+  render: function() {
+    return (
+      <span className='issuefeed-username'>{this.props.issue.user.login}</span>
+    )
+  }
+});
+
+var IssueAvatar = React.createClass({
+
+  render: function() {
+    return (
+      <div className='issuefeed-avatar'><img src={this.props.issue.user.avatar_url}/></div>
+    )
+  }
+});
+
+var IssueSummary = React.createClass({
+
+  render: function() {
+   var body = this.props.issue.body;
+   var summary = '';
+    
+    // Edit down to 140 characters
+    if (body.length <= 140) {
+      summary = body;
+    } else {
+      var endIndex;
+
+      // Check for newlines and spaces
+      var check = body[139].match( /(\r\n|\n|\r|\s)/ );
+
+      // If 140th char is not a newline or space, loop down to find closest to end
+      if (!check) {
+        for (var i = 139; i >= 0; i--) {
+          if (body[i].match( /(\r\n|\n|\r|\s)/ )) {
+            endIndex = i;
+            break;
+          }
+        }
+      } else {
+        endIndex = 139;
+      }
+    }
+
+    for (var j = 0; j < endIndex; j++) {
+      summary += body[j];
+    }
+
+    return (
+      <div className='issuefeed-summary'>{summary} ...</div>
+    )
+  }
+});
 
 module.exports = IssueEntry;

@@ -5,16 +5,13 @@ var IssueFeed = React.createClass({
 
   render: function(){
     var issues = this.props.issues;
-    var issuesArray = [];
-
-    issues.forEach(function(issue) {
-      issuesArray.push(
-        <Entry key={issue.id} issue={issue} />
-      );
-    });
-
+  
     return (
-      <ul className='issue-feed'>{issuesArray}</ul>
+      <ul className='issuefeed'>
+        {issues.map(function(issue) {
+          return <Entry key={issue.id} issue={issue} />
+        })}
+      </ul>
     )
   }
 });

@@ -8,7 +8,7 @@ var Home = React.createClass({
   render: function(){ 
     // TODO: use bootstrap grid 
     return (
-      <div>
+      <div className='issue-feed-container'>
         < IssueFeed issues={this.props.issues}/>
       </div>
     )
