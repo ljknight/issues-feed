@@ -86,7 +86,7 @@ var IssueSummary = React.createClass({
       // Check for newlines and spaces
       var check = body[139].match( /(\r\n|\n|\r|\s)/ );
 
-      // If 140th char is not a newline or space, loop down to find closest to end
+      // If 140th char is not a newline or space, loop down from end to find closest clean break point
       if (!check) {
         for (var i = 139; i >= 0; i--) {
           if (body[i].match( /(\r\n|\n|\r|\s)/ )) {
@@ -104,7 +104,7 @@ var IssueSummary = React.createClass({
     }
 
     return (
-      <div className='issuefeed-summary'>{summary} ...</div>
+      <div className='issuefeed-summary'>{summary} <span className='issuefeed-summary-readmore'>...</span></div>
     )
   }
 });
