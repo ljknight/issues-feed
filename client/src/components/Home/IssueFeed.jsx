@@ -10,7 +10,7 @@ var IssueFeed = React.createClass({
       <ul className='issuefeed'>
         {issues.map(function(issue) {
           return <Entry key={issue.id} issue={issue} />
-        })};
+        })}
       </ul>
     )
   }

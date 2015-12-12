@@ -1,3 +1,5 @@
+var React = require('react');
+
 var CommentFeed = React.createClass({
   render: function(){
     return (
@@ -6,3 +8,5 @@ var CommentFeed = React.createClass({
     )
   }
 });
+
+module.exports = CommentFeed;

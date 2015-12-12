@@ -28,11 +28,12 @@ var IssueNumber = React.createClass({
   }
 });
 
+// Title links to Issue Detail page
 var IssueTitle = React.createClass({
   
   render: function() {
     return (
-     <span className='issuefeed-title'><Link to={`/issue/${this.props.issue.id}`}>{this.props.issue.title}</Link></span>
+     <span className='issuefeed-title'><Link to={`/issue/${this.props.issue.number}`}>{this.props.issue.title}</Link></span>
     )
   }
 });
@@ -47,10 +48,17 @@ var IssueLabels = React.createClass({
     return (
       <ul className='issuefeed-labels'>
         {labels.map(function(label) {
-          return <li key={label.id}>{label.name}</li>
+          return <IssueLabel key={label.id} label={label} />
         })}
       </ul>
-    )
+    )      
+  }
+});
+
+var IssueLabel = React.createClass({
+  
+  render: function() {
+    return <li>{this.props.label.name}</li>
   }
 });
 
