@@ -1,4 +1,4 @@
-var IssueDetails = React.createClass({
+var IssueDetail = React.createClass({
   render: function(){
     return (
       <div>

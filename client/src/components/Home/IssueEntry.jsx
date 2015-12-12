@@ -1,14 +1,15 @@
 var React = require('react');
+var Link = require('react-router').Link;
 
 var IssueEntry = React.createClass({
   
   render: function(){
-
     var issue = this.props.issue;
+    
     return (
       <li className='issuefeed-entry'>
         <IssueNumber issue={issue} />
-        <IssueTitle issue={issue}/>
+        <IssueTitle issue={issue} />
         <IssueLabels issue={issue}/>
         <IssueUsername issue={issue} />
         <IssueAvatar issue={issue} />
@@ -31,7 +32,7 @@ var IssueTitle = React.createClass({
   
   render: function() {
     return (
-      <span className='issuefeed-title'>{this.props.issue.title}</span>
+     <span className='issuefeed-title'><Link to={`/issue/${this.props.issue.id}`}>{this.props.issue.title}</Link></span>
     )
   }
 });
