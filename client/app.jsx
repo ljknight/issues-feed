@@ -26,7 +26,7 @@ var App = React.createClass({
 
   getIssues: function() {
     $.ajax({
-      url: 'https://api.github.com/repos/npm/npm/issues?page=1',
+      url: 'https://api.github.com/repos/npm/npm/issues?page=1?TOKEN',
       dataType: 'json',
       success: function(data, status, request) {
         console.log('data', data)
@@ -44,7 +44,7 @@ var App = React.createClass({
 
   render: function(){
     return (
-      <div>
+      <div className='app'>
         <Title />
         <HomeContainer issues={this.state.issues} />
       </div>

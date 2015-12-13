@@ -4,11 +4,9 @@ var Title = React.createClass({
 
   render: function(){
     return (
-      <div className='title-container'>
-        <h1>
-          Hello !
-        </h1>
-      </div>
+      <header>
+        <h1>npm/issues</h1>
+      </header>
     )
   }
 });

@@ -8,12 +8,14 @@ var IssueEntry = React.createClass({
     
     return (
       <li className='issuefeed-entry'>
-        <IssueNumber issue={issue} />
-        <IssueTitle issue={issue} />
-        <IssueLabels issue={issue}/>
-        <IssueUsername issue={issue} />
         <IssueAvatar issue={issue} />
-        <IssueSummary issue={issue} />
+        <div className='issuefeed-entrycontent'>
+          <IssueNumber issue={issue} />
+          <IssueTitle issue={issue} />
+          <IssueUsername issue={issue} />
+          <IssueLabels issue={issue}/>
+          <IssueSummary issue={issue} />
+        </div>
       </li>
     )
   }
@@ -23,7 +25,7 @@ var IssueNumber = React.createClass({
   
   render: function() {
     return (
-      <span className='issuefeed-number'>#{this.props.issue.number}</span>
+      <div className='issuefeed-number'>#{this.props.issue.number}</div>
     )
   }
 });
@@ -48,17 +50,10 @@ var IssueLabels = React.createClass({
     return (
       <ul className='issuefeed-labels'>
         {labels.map(function(label) {
-          return <IssueLabel key={label.id} label={label} />
+          return <li className='issuefeed-label' key={label.id}>{label.name}</li>
         })}
       </ul>
     )      
-  }
-});
-
-var IssueLabel = React.createClass({
-  
-  render: function() {
-    return <li>{this.props.label.name}</li>
   }
 });
 
@@ -113,7 +108,7 @@ var IssueSummary = React.createClass({
     }
 
     return (
-      <div className='issuefeed-summary'>{summary} <span className='issuefeed-summary-readmore'>...</span></div>
+      <div className='issuefeed-summary'>{summary} <span className='issuefeed-summary-readmore'><Link to={`/issue/${this.props.issue.number}`}>(More)</Link></span></div>
     )
   }
 });

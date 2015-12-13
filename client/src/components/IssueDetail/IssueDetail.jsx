@@ -1,6 +1,7 @@
 var React = require('react');
 
 var IssueDetail = React.createClass({
+  
   render: function(){
     var issue = this.props.issue[0];
 
@@ -77,6 +78,7 @@ var IssueAvatar = React.createClass({
 var IssueSummary = React.createClass({
 
   render: function() {
+
     return (
       <div className='issuedetail-summary'>{this.props.issue.body}</div>
     )

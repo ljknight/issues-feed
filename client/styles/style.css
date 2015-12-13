@@ -1,0 +1,93 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  font-family: 'Proxima Nova', Helvetica, Arial, sans-serif;
+  height: 100%;
+  margin: 0;
+}
+
+@font-face {
+  font-family: 'Proxima Nova';
+  src: url('../assets/ProximaNova-Reg.otf');
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Proxima Nova';
+  src: url('../assets/ProximaNova-Bold.otf');
+  font-style: normal;
+  font-weight: bold;
+}
+
+#app, .app {
+  height: 100%;
+}
+
+/* Title */
+
+header {
+  background-color: #333;
+  font-weight: 700;
+  height: 35%;
+  margin-bottom: 5%;
+  width: 100%;
+}
+
+h1 {
+  color: #fff;
+  font-weight: bold;
+  font-size: 3em;
+  margin: 0;
+  position: relative;
+  text-align: center;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+
+.issuefeed-summary, .issuedetail-summary {
+  white-space: pre-wrap;
+}
+
+
+/* Issue Feed */
+
+.issuefeed {
+  margin: 0 auto;
+  padding-left: 0;
+  width: 75%;
+}
+
+.issuefeed-entry {
+  border-bottom: 1px solid #999;
+  list-style: none;
+  padding-bottom: 10%;
+  padding-top: 10%;
+}
+
+.issuefeed-entry:first-child {
+  padding-top: 0;
+}
+
+.issuefeed-entry:last-child {
+  border-bottom: none;
+}
+
+.issuefeed-avatar img {
+  border-radius: 50px;
+  display: inline-block;
+  float: left;
+  height: 100px;
+  width: 100px;
+}
+
+.issuefeed-entrycontent {
+  margin-left: 20px;
+}
+
