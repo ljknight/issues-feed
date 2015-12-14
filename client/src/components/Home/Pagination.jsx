@@ -3,7 +3,19 @@ var Link = require('react-router').Link;
 
 var Pagination = React.createClass({
 
+  componentDidUpdate: function() {
+    this.paginate();
+  },
+  
   paginate: function(page) {
+
+    console.log('paginacion', page)
+    console.log('pagin', this.props.data)
+
+    var currPage = Number(this.props.page);
+    var loadPrevPage = this.props.getIssues.bind(null, currPage-1);
+    var loadNextPage = this.props.getIssues.bind(null, currPage+1);
+    
     // 1 - 1: 1-25
     // 2 - 1: 26-30, 2: 1-20
     // 3 - 2: 21-30, 3: 1-15
@@ -12,10 +24,9 @@ var Pagination = React.createClass({
     // 6 - 5: 6-30
     // 7 - 6: 1-25
 
-    // pass in page number
-    // if (page === 1) {
+    if (page === 1) {
 
-    // }
+    }
 
     // if page === 1 -> call page 1 and load first 25
       // hide prev
@@ -49,14 +60,12 @@ var Pagination = React.createClass({
 
   render: function() {
     var currPage = Number(this.props.page);
-    var loadPrevPage = this.props.getIssues.bind(null, currPage-1);
-    var loadNextPage = this.props.getIssues.bind(null, currPage+1);
     
     return (
       <nav className='pagination-nav'>
         <ul className='pagination'>
-          <li onClick={loadPrevPage}><Link to={`/page/${currPage - 1}`}> Previous</Link></li>
-          <li onClick={loadNextPage}><Link to={`/page/${currPage + 1}`}> Next</Link></li>
+          <li>onClick={this.paginate.bind(this,'prev')}><Link to={`/page/${currPage - 1}`}> Previous</Link></li>
+          <li onClick={this.paginate.bind(this, 'next')}><Link to={`/page/${currPage + 1}`}> Next</Link></li>
         </ul>
       </nav>
     )

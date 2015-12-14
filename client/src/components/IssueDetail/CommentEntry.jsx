@@ -2,6 +2,7 @@ var React = require('react');
 var $ = require('jQuery');
 
 var CommentEntry = React.createClass({
+  
   render: function(){
     return (
       <li className='commentfeed-entry'>
@@ -15,15 +16,6 @@ var CommentEntry = React.createClass({
   }
 });
 
-var CommentUsername = React.createClass({
-
-  render: function() {
-    return (
-      <div className='commentfeed-username'><a href={this.props.comment.user.html_url} target='window'>{this.props.comment.user.login}</a> commented</div>
-    )
-  }
-});
-
 var CommentAvatar = React.createClass({
 
   render: function() {
@@ -33,11 +25,19 @@ var CommentAvatar = React.createClass({
   }
 });
 
+var CommentUsername = React.createClass({
+
+  render: function() {
+    return (
+      <div className='commentfeed-username'><a href={this.props.comment.user.html_url} target='window'>{this.props.comment.user.login}</a> commented</div>
+    )
+  }
+});
+
 var CommentSummary = React.createClass({
   
+  // Check for @mentions
   findMentions: function(text) {
-    // Check for @mentions
-
     if (text.indexOf('@') !== -1) {
       var re = /(?:^|\W)@(\w+)(?!\w)/g;
       var match;
@@ -68,5 +68,3 @@ var CommentSummary = React.createClass({
 });
 
 module.exports = CommentEntry;
-
-

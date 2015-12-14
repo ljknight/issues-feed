@@ -11,11 +11,11 @@ var createHistory = require('history/lib/createHashHistory');
 var HomeContainer = require('./src/components/Home/HomeContainer.jsx');
 var IssueDetailContainer = require('./src/components/IssueDetail/IssueDetailContainer.jsx');
 
+// Set up React Router
 var history = createHistory({
   queryKey: false
 });
 
-// Set up React Router
 ReactDOM.render(
   <Router history={history}>
     <Route path='/' component={HomeContainer}>

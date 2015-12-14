@@ -20,6 +20,15 @@ var IssueDetail = React.createClass({
   }
 });
 
+var IssueAvatar = React.createClass({
+
+  render: function() {
+    return (
+      <div className='issuedetail-avatar'><img src={this.props.issue.user.avatar_url}/></div>
+    )
+  }
+});
+
 var IssueTitle = React.createClass({
   
   render: function() {
@@ -38,6 +47,15 @@ var IssueState = React.createClass({
   }
 });
 
+var IssueUsername = React.createClass({
+
+  render: function() {
+    return (
+      <div className='issuedetail-username'>&nbsp;&mdash;&nbsp;opened by <a href={this.props.issue.user.html_url} target='window'>{this.props.issue.user.login}</a></div>
+    )
+  }
+});
+
 var IssueLabels = React.createClass({
   
   render: function() {
@@ -47,7 +65,7 @@ var IssueLabels = React.createClass({
       return (
         <ul className='issuedetail-labels'>
           {labels.map(function(label) {
-            return <li key={label.id}>{label.name}</li>
+            return <li className='issuefeed-label' key={label.id}>{label.name}</li>
           })}
         </ul>
       )      
@@ -59,29 +77,10 @@ var IssueLabels = React.createClass({
   }
 });
 
-var IssueUsername = React.createClass({
-
-  render: function() {
-    return (
-      <div className='issuedetail-username'>&nbsp;&mdash;&nbsp;opened by <a href={this.props.issue.user.html_url} target='window'>{this.props.issue.user.login}</a></div>
-    )
-  }
-});
-
-var IssueAvatar = React.createClass({
-
-  render: function() {
-    return (
-      <div className='issuedetail-avatar'><img src={this.props.issue.user.avatar_url}/></div>
-    )
-  }
-});
-
 var IssueSummary = React.createClass({
 
+  // Check for @mentions
   findMentions: function(text) {
-    // Check for @mentions
-
     if (text.indexOf('@') !== -1) {
       var re = /(?:^|\W)@(\w+)(?!\w)/g;
       var match;
