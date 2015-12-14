@@ -1,3 +1,5 @@
+/* App-wide */
+
 * {
   box-sizing: border-box;
 }
@@ -10,39 +12,66 @@ body {
   font-family: 'Proxima Nova', Helvetica, Arial, sans-serif;
   height: 100%;
   margin: 0;
+  word-wrap: break-word;
 }
 
 @font-face {
   font-family: 'Proxima Nova';
   src: url('../assets/ProximaNova-Reg.otf');
   font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Proxima Nova';
+  src: url('../assets/ProximaNova-Sbold.otf');
+  font-style: normal;
+  font-weight: 600;
 }
 
 @font-face {
   font-family: 'Proxima Nova';
   src: url('../assets/ProximaNova-Bold.otf');
   font-style: normal;
-  font-weight: bold;
+  font-weight: 700;
 }
 
-#app, .app {
+@font-face {
+  font-family: 'Proxima Nova';
+  src: url('../assets/ProximaNova-Xbold.otf');
+  font-style: normal;
+  font-weight: 900;
+}
+
+#app, .app, .home-page, .issuedetail-page {
   height: 100%;
 }
 
-/* Title */
+ul {
+  padding-left: 0;
+}
+
+li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* Title View */
 
 header {
   background-color: #333;
-  font-weight: 700;
   height: 35%;
-  margin-bottom: 5%;
+  margin-bottom: 8%;
   width: 100%;
 }
 
 h1 {
   color: #fff;
-  font-weight: bold;
-  font-size: 3em;
+  font-weight: 900;
+  font-size: 3.5em;
   margin: 0;
   position: relative;
   text-align: center;
@@ -50,23 +79,99 @@ h1 {
   transform: translateY(-50%);
 }
 
+h1 a {
+  color: #fff;
+}
 
-.issuefeed-summary, .issuedetail-summary {
+.clear {
+  clear: both;
+}
+
+.issuefeed-summary, .issuedetail-summary, .commentfeed-summary {
   white-space: pre-wrap;
 }
 
+/* Issue Feed & Issue Detail View */
 
-/* Issue Feed */
-
-.issuefeed {
+.issuefeed-container, .issuedetail-container {
+  font-weight: 400;
   margin: 0 auto;
-  padding-left: 0;
   width: 75%;
 }
 
+.issuefeed-avatar img, .issuedetail-avatar img, .commentfeed-avatar img {
+  border-radius: 50px;
+  float: left;
+  height: 100px;
+  margin-bottom: 5%;
+  margin-left: 5%;
+  width: 100px;
+}
+
+.issuefeed-entrycontent, .issuedetail-entrycontent, .commentfeed-entrycontent {
+  float: left;
+  margin-left: 5%;
+  width: 75%;
+}
+
+.issuefeed-number, .issuefeed-title, .issuedetail-title {
+  font-weight: 900;
+}
+
+.issuefeed-title, .issuedetail-title {
+  margin-bottom: 1%;
+}
+
+.issuefeed-title a, .issuedetail-title a {
+  color: #000;
+  font-size: 2em;
+}
+
+.issuefeed-username, .issuedetail-username {
+  font-size: 1.4em;
+  font-weight: 600;
+  margin-bottom: 5%;
+}
+
+.issuefeed-username a, .issuedetail-username a {
+  color: #3097f4;
+}
+
+.issuefeed-labels, .issuedetail-labels {
+  font-size: 0.8em;
+  overflow: hidden;
+}
+
+.issuefeed-label, .issuedetail-label {
+  border: 1px #999 solid;
+  border-radius: 3px;
+  display: inline-block;
+  float: left;
+  font-weight: 600;
+  margin-bottom: 3%;
+  padding: 5px 10px;
+  margin-left: 10px;
+  text-transform: uppercase;
+}
+
+.issuefeed-label:first-child, .issuedetail-label:first-child {
+  margin-left: 0;
+}
+
+.issuefeed-summary, .issuedetail-summary, .commentfeed-summary {
+  clear: both;
+  
+}
+
+.issuefeed-label, .issuefeed-summary, .issuedetail-label, .issuedetail-summary, .commentfeed-summary {
+  color: #999;
+  font-size: 0.9em;
+}
+
+/* Issue Feed View */
+
 .issuefeed-entry {
   border-bottom: 1px solid #999;
-  list-style: none;
   padding-bottom: 10%;
   padding-top: 10%;
 }
@@ -79,15 +184,50 @@ h1 {
   border-bottom: none;
 }
 
-.issuefeed-avatar img {
-  border-radius: 50px;
-  display: inline-block;
-  float: left;
-  height: 100px;
-  width: 100px;
+.issuefeed-number {
+  margin-bottom: 2%;
 }
 
-.issuefeed-entrycontent {
-  margin-left: 20px;
+.issuefeed-summary-readmore a {
+  color: #3097f4;
+}
+
+/* Issue Details View */
+
+.issuedetail {
+  overflow: hidden;
+  padding-bottom: 10%;
+}
+
+.issuedetail-state {
+  color: #20e8e6;
+  font-size: 1.4em;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.issuedetail-username {
+  display: inline-block;
+}
+
+.commentfeed-entry {
+  border-top: 1px solid #999;
+  overflow: hidden;
+  padding-bottom: 10%;
+  padding-top: 10%;
+}
+
+.commentfeed-username {
+  font-size: 1.4em;
+  font-weight: 600;
+  margin-bottom: 2%;
+}
+
+.commentfeed-username a {
+  color: #3097f4;
+}
+
+.mention a {
+  color: #3097f4;
 }
 

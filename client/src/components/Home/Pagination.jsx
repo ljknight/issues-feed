@@ -1,11 +1,58 @@
 var React = require('react');
+var Link = require('react-router').Link;
 
 var Pagination = React.createClass({
 
+  paginate: function(page) {
+    // 1 - 1: 1-25
+    // 2 - 1: 26-30, 2: 1-20
+    // 3 - 2: 21-30, 3: 1-15
+    // 4 - 3: 16-30, 4: 1-10
+    // 5 - 4: 11-30, 5: 1-5
+    // 6 - 5: 6-30
+    // 7 - 6: 1-25
+
+    // pass in page number
+    // if (page === 1) {
+
+    // }
+
+    // if page === 1 -> call page 1 and load first 25
+
+    // else
+
+    // var dictionary = {
+    //   2: {
+    //     page-1: 26-30,
+    //     page: 1-20
+    //   },
+    //   3: {
+    //     page-1: 21-30,
+    //     page: 1-15
+    //   },
+    //   4: {
+
+    //   },
+    //   5: {
+
+    //   },
+    //   6: {
+
+    //   }, 
+    //   7: {
+    //     page-1: 1-25
+    //   }
+    // }
+
+    // [2,3,4,5,6,7]
+  },
+
   render: function() {
     return (
-      // TODO: use better tags
-      <div>{this.props.nextLink}</div>
+      <div className='pagination'>
+        <div><Link to={`/page/${this.props.page - 1}`}> Previous</Link></div>
+        <div><Link to={`/page/${this.props.page + 1}`}> Next</Link></div>
+      </div>
     )
   }
 });

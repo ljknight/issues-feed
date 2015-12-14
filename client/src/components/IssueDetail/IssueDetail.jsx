@@ -7,12 +7,14 @@ var IssueDetail = React.createClass({
 
     return (
       <div className='issuedetail'>
-        <IssueTitle issue={issue} />
-        <IssueState issue={issue} />
-        <IssueLabels issue={issue}/>
-        <IssueUsername issue={issue} />
         <IssueAvatar issue={issue} />
-        <IssueSummary issue={issue} />
+        <div className='issuedetail-entrycontent'>
+          <IssueTitle issue={issue} />
+          <IssueState issue={issue} />
+          <IssueUsername issue={issue} />
+          <IssueLabels issue={issue}/>
+          <IssueSummary issue={issue} />
+        </div>
       </div>
     )
   }
@@ -22,7 +24,7 @@ var IssueTitle = React.createClass({
   
   render: function() {
     return (
-     <span className='issuedetail-title'>{this.props.issue.title}</span>
+     <div className='issuedetail-title'><a href={this.props.issue.html_url} target='window'>{this.props.issue.title}</a></div>
     )
   }
 });
@@ -31,7 +33,7 @@ var IssueState = React.createClass({
 
   render: function() {
     return (
-      <div></div>
+      <span className='issuedetail-state'>{this.props.issue.state}</span>
     )
   }
 });
@@ -61,7 +63,7 @@ var IssueUsername = React.createClass({
 
   render: function() {
     return (
-      <span className='issuedetail-username'>{this.props.issue.user.login}</span>
+      <div className='issuedetail-username'>&nbsp;&mdash;&nbsp;opened by <a href={this.props.issue.user.html_url} target='window'>{this.props.issue.user.login}</a></div>
     )
   }
 });
@@ -77,10 +79,34 @@ var IssueAvatar = React.createClass({
 
 var IssueSummary = React.createClass({
 
+  findMentions: function(text) {
+    // Check for @mentions
+
+    if (text.indexOf('@') !== -1) {
+      var re = /(?:^|\W)@(\w+)(?!\w)/g;
+      var match;
+      var spliceSlice = function(str, index, count, add) {
+        var result = [];
+        result.push(str.slice(0, index), add, str.slice(index + count)) 
+        return result;
+      }
+        
+      while (match = re.exec(text)) {
+        var route = 'http://www.github.com/' + match[1];
+        text = spliceSlice(text, match.index, match[0].length, <span className='mention'><a href={route}>{match[0]}</a></span>)
+      }
+
+      return text;
+    } else {
+      return text;
+    }
+  },
+
   render: function() {
+    var summary = this.findMentions(this.props.issue.body);
 
     return (
-      <div className='issuedetail-summary'>{this.props.issue.body}</div>
+      <div className='issuedetail-summary'>{summary}</div>
     )
   }
 });

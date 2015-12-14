@@ -7,9 +7,7 @@ var CommentFeed = React.createClass({
     var comments = this.props.comments;
 
     return (
-      <div className='comments'>
-        <div className='comment-count'>{this.props.commentCount} comments
-        </div>
+      <div className='comments clear'>
         <ul className='commentfeed'>
           {comments.map(function(comment) {
             return <CommentEntry key={comment.id} comment={comment} />

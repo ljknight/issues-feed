@@ -1,5 +1,6 @@
 var React = require('react');
 var $ = require('jQuery');
+var Title = require('./../Title.jsx');
 var IssueDetail = require('./IssueDetail.jsx');
 var CommentFeed = require('./CommentFeed.jsx');
 
@@ -27,10 +28,9 @@ var IssueDetailContainer = React.createClass({
 
   getIssue: function() {
     $.ajax({
-      url: 'https://api.github.com/repos/npm/npm/issues/' + this.state.issueId + 'TOKEN',
+      url: 'https://api.github.com/repos/npm/npm/issues/' + this.state.issueId + '',
       dataType: 'json',
       success: function(data, status, request) {
-        console.log('data', data)
         if (this.isMounted()) {
           this.setState({
             issue: [data],
@@ -47,10 +47,9 @@ var IssueDetailContainer = React.createClass({
 
   getComments: function() {
     $.ajax({
-      url: 'https://api.github.com/repos/npm/npm/issues/' + this.state.issueId + 'TOKEN',
+      url: 'https://api.github.com/repos/npm/npm/issues/' + this.state.issueId + '/comments',
       dataType: 'json',
       success: function(data, status, request) {
-        console.log('data', data)
         if (this.isMounted()) {
           this.setState({
             comments: data
@@ -65,9 +64,12 @@ var IssueDetailContainer = React.createClass({
 
   render: function() {
     return (
-      <div className='issuedetail-container'>
-        <IssueDetail issue={this.state.issue} />
-        <CommentFeed comments={this.state.comments} commentCount={this.state.commentCount} />
+      <div className='issuedetail-page'>
+        <Title />
+        <div className='issuedetail-container'>
+          <IssueDetail issue={this.state.issue} />
+          <CommentFeed comments={this.state.comments} />
+       </div>
       </div>
     )
   }

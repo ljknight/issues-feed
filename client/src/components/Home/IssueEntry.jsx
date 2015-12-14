@@ -16,6 +16,7 @@ var IssueEntry = React.createClass({
           <IssueLabels issue={issue}/>
           <IssueSummary issue={issue} />
         </div>
+        <div className='clear'></div>
       </li>
     )
   }
@@ -35,12 +36,10 @@ var IssueTitle = React.createClass({
   
   render: function() {
     return (
-     <span className='issuefeed-title'><Link to={`/issue/${this.props.issue.number}`}>{this.props.issue.title}</Link></span>
+     <div className='issuefeed-title'><Link to={`/issue/${this.props.issue.number}`}>{this.props.issue.title}</Link></div>
     )
   }
 });
-
-// TODO: add label colors
 
 var IssueLabels = React.createClass({
   
@@ -49,8 +48,8 @@ var IssueLabels = React.createClass({
 
     return (
       <ul className='issuefeed-labels'>
-        {labels.map(function(label) {
-          return <li className='issuefeed-label' key={label.id}>{label.name}</li>
+        {labels.map(function(label, i) {
+          return <li className='issuefeed-label' key={i}>{label.name}</li>
         })}
       </ul>
     )      
@@ -61,7 +60,7 @@ var IssueUsername = React.createClass({
 
   render: function() {
     return (
-      <span className='issuefeed-username'>{this.props.issue.user.login}</span>
+      <div className='issuefeed-username'>opened by <a href={this.props.issue.user.html_url} target='window'>{this.props.issue.user.login}</a></div>
     )
   }
 });
@@ -77,7 +76,7 @@ var IssueAvatar = React.createClass({
 
 var IssueSummary = React.createClass({
 
-  render: function() {
+  trimSummary: function() {
    var body = this.props.issue.body;
    var summary = '';
     
@@ -102,10 +101,42 @@ var IssueSummary = React.createClass({
         endIndex = 139;
       }
     }
-
+        
+    // Add each character to summary
     for (var j = 0; j < endIndex; j++) {
       summary += body[j];
     }
+
+    return summary;
+  },
+
+  findMentions: function(text) {
+    // Check for @mentions
+
+    if (text.indexOf('@') !== -1) {
+      var re = /(?:^|\W)@(\w+)(?!\w)/g;
+      var match;
+      var spliceSlice = function(str, index, count, add) {
+        var result = [];
+        result.push(str.slice(0, index), add, str.slice(index + count)) 
+        return result;
+      }
+        
+      while (match = re.exec(text)) {
+        var route = 'http://www.github.com/' + match[1];
+        text = spliceSlice(text, match.index, match[0].length, <span className='mention'><a href={route}>{match[0]}</a></span>)
+      }
+
+      return text;
+    } else {
+      return text;
+    }
+
+  },
+
+  render: function() {
+    var text = this.trimSummary();
+    var summary = this.findMentions(text);
 
     return (
       <div className='issuefeed-summary'>{summary} <span className='issuefeed-summary-readmore'><Link to={`/issue/${this.props.issue.number}`}>(More)</Link></span></div>
