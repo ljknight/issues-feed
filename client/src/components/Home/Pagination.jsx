@@ -18,7 +18,7 @@ var Pagination = React.createClass({
     // }
 
     // if page === 1 -> call page 1 and load first 25
-
+      // hide prev
     // else
 
     // var dictionary = {
@@ -48,11 +48,17 @@ var Pagination = React.createClass({
   },
 
   render: function() {
+    var currPage = Number(this.props.page);
+    var loadPrevPage = this.props.getIssues.bind(null, currPage-1);
+    var loadNextPage = this.props.getIssues.bind(null, currPage+1);
+    
     return (
-      <div className='pagination'>
-        <div><Link to={`/page/${this.props.page - 1}`}> Previous</Link></div>
-        <div><Link to={`/page/${this.props.page + 1}`}> Next</Link></div>
-      </div>
+      <nav className='pagination-nav'>
+        <ul className='pagination'>
+          <li onClick={loadPrevPage}><Link to={`/page/${currPage - 1}`}> Previous</Link></li>
+          <li onClick={loadNextPage}><Link to={`/page/${currPage + 1}`}> Next</Link></li>
+        </ul>
+      </nav>
     )
   }
 });

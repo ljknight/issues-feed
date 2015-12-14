@@ -47,7 +47,7 @@ var IssueDetailContainer = React.createClass({
 
   getComments: function() {
     $.ajax({
-      url: 'https://api.github.com/repos/npm/npm/issues/' + this.state.issueId + '/comments',
+      url: 'https://api.github.com/repos/npm/npm/issues/' + this.state.issueId + '/comments?',
       dataType: 'json',
       success: function(data, status, request) {
         if (this.isMounted()) {

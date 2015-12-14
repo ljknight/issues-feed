@@ -1,4 +1,5 @@
 var React = require('react');
+var ReactDOM = require('react-dom');
 var $ = require('jQuery');
 
 var Title = require('./../Title.jsx');
@@ -10,7 +11,7 @@ var HomeContainer = React.createClass({
   getInitialState: function(){
     return {
       issues: [],
-      page: this.props.params.page || 1
+      page: 1
     };
   },
 
@@ -18,15 +19,22 @@ var HomeContainer = React.createClass({
     this.getIssues();
   },
 
-  getIssues: function(page) {
+  // Scroll to top after page change
+  componentDidUpdate: function() {
+    ReactDOM.findDOMNode(document.body).scrollTop = 0;
+  },
+
+  getIssues: function() {
+  
     $.ajax({
-      url: 'https://api.github.com/repos/npm/npm/issues?page=' + page + '&',
+      url: 'https://api.github.com/repos/npm/npm/issues?page=' + this.state.page + '&',
       dataType: 'json',
       success: function(data, status, request) {
-        console.log('data', data)
+        console.log('data', data, this.state.page, this.props.params)
         if (this.isMounted()) {
           this.setState({
-            issues: data
+            issues: data,
+            page: this.props.params.page || 1
           });
         }
       }.bind(this),
@@ -42,8 +50,8 @@ var HomeContainer = React.createClass({
         <Title />
         <div className='issuefeed-container'>
           <IssueFeed issues={this.state.issues} />
+          <Pagination getIssues={this.getIssues} page={this.state.page} />
         </div>
-        <Pagination getIssues={this.state.getIssues} page={this.state.page} />
       </div>
     )
   }
