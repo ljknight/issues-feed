@@ -79,7 +79,7 @@ var IssueDetailContainer = React.createClass({
       });
 
     return (
-      <div className='issuedetail-page'>
+      <main className='issuedetail-page'>
         <Title />
         <div className='issuedetail-container'>
           <div className='spinner'>
@@ -88,7 +88,7 @@ var IssueDetailContainer = React.createClass({
           <IssueDetail issue={this.state.issue} />
           <CommentFeed comments={this.state.comments} />
        </div>
-      </div>
+      </main>
     )
   }
 

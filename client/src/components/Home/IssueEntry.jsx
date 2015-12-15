@@ -26,7 +26,7 @@ var IssueAvatar = React.createClass({
 
   render: function() {
     return (
-      <div className='issuefeed-avatar'><img src={this.props.issue.user.avatar_url}/></div>
+      <div className='issuefeed-avatar'><img src={this.props.issue.user.avatar_url} alt='User Avatar'/></div>
     )
   }
 });

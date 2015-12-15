@@ -1,5 +1,5 @@
 var React = require('react');
-var Entry = require('./IssueEntry.jsx');
+var IssueEntry = require('./IssueEntry.jsx');
 
 var IssueFeed = React.createClass({
 
@@ -9,7 +9,7 @@ var IssueFeed = React.createClass({
     return (
       <ul className='issuefeed'>
         {issues.map(function(issue) {
-          return <Entry key={issue.id} issue={issue} />
+          return <IssueEntry key={issue.id} issue={issue} />
         })}
       </ul>
     )

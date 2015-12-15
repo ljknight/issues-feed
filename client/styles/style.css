@@ -241,14 +241,14 @@ h1 a {
 /* Pagination */
 
 .pagination-nav {
-  margin-bottom: 10%;
-  /*overflow: hidden;*/
+  padding-bottom: 10%;
   position: relative;
 }
 
 .pagination li {
   display: inline-block;
   float: left;
+  position: absolute;
 }
 
 .pagination a {
@@ -259,10 +259,8 @@ h1 a {
 
 .prev {
   left: 0;
-  position: absolute;
 }
 
 .next {
-  position: absolute;
   right: 0;
 }

@@ -176,12 +176,11 @@ var HomeContainer = React.createClass({
   render: function() { 
     var $loading = $('.spinner');
     var currPage = Number(this.state.page);
+    var context = this;
 
     // Hide prev link on first page & next on last page
     if (currPage === 1) {
       $('.prev').hide();
-    } else if (currPage === this.state.lastPage) {
-      $('.next').hide();
     } else {
       $('.prev').show();
       $('.next').show();
@@ -197,7 +196,7 @@ var HomeContainer = React.createClass({
       });
 
     return (
-      <div className='home-page'>
+      <main className='home-page'>
         <Title />
         <div className='issuefeed-container'>
           <div className='spinner'>
@@ -211,7 +210,7 @@ var HomeContainer = React.createClass({
             </ul>
           </nav>
         </div>
-      </div>
+      </main>
     )
   }
 });

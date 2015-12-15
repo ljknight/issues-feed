@@ -20,7 +20,7 @@ var CommentAvatar = React.createClass({
 
   render: function() {
     return (
-      <div className='commentfeed-avatar'><img src={this.props.comment.user.avatar_url}/></div>
+      <div className='commentfeed-avatar'><img src={this.props.comment.user.avatar_url} alt='User Avatar'/></div>
     )
   }
 });
