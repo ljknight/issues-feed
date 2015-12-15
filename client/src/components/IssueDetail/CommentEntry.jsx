@@ -1,5 +1,5 @@
 var React = require('react');
-var $ = require('jQuery');
+var Utils = require('./../../helpers/Utils.js');
 
 var CommentEntry = React.createClass({
   
@@ -35,24 +35,9 @@ var CommentUsername = React.createClass({
 });
 
 var CommentSummary = React.createClass({
-  
-  // Check for @mentions
-  findMentions: function(text) {
-    if (text.indexOf('@') !== -1) {
-      var reg = /(?:^|\W)@(\w+)(?!\w)/g;
-      var text = text.replace(reg, function(_, $1, $2) {
-        var route = 'http://www.github.com/' + $1;
-        return '<a href='+route+'>'+_+'</a>' + text[$2] 
-      });
-
-      return $.parseHTML(text);
-    } else {
-      return text;
-    }
-  },
 
   render: function() {
-    var summary = this.findMentions(this.props.comment.body);
+    var summary = Utils.findMentions(this.props.comment.body);
 
     if (Array.isArray(summary)) {
       return (

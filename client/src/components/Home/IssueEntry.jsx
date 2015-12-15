@@ -1,6 +1,7 @@
 var React = require('react');
 var $ = require('jQuery');
 var Link = require('react-router').Link;
+var Utils = require('./../../helpers/Utils.js');
 
 var IssueEntry = React.createClass({
   
@@ -77,58 +78,9 @@ var IssueLabels = React.createClass({
 
 var IssueSummary = React.createClass({
 
-  // Trim down to 140 characters
-  trimSummary: function() {
-   var body = this.props.issue.body;
-   var summary = '';
-    
-    if (body.length <= 140) {
-      summary = body;
-    } else {
-      var endIndex;
-
-      // Check for newlines and spaces
-      var check = body[139].match( /(\r\n|\n|\r|\s)/ );
-
-      // If 140th char is not a newline or space, loop down from end to find closest clean break point
-      if (!check) {
-        for (var i = 139; i >= 0; i--) {
-          if (body[i].match( /(\r\n|\n|\r|\s)/ )) {
-            endIndex = i;
-            break;
-          }
-        }
-      } else {
-        endIndex = 139;
-      }
-    }
-        
-    // Add each character to summary
-    for (var j = 0; j < endIndex; j++) {
-      summary += body[j];
-    }
-
-    return summary;
-  },
-
-  // Check for @mentions
-  findMentions: function(text) {
-    if (text.indexOf('@') !== -1) {
-      var reg = /(?:^|\W)@(\w+)(?!\w)/g;
-      var text = text.replace(reg, function(_, $1, $2) {
-        var route = 'http://www.github.com/' + $1;
-        return '<a href='+route+'>'+_+'</a>' + text[$2] 
-      });
-
-      return $.parseHTML(text);
-    } else {
-      return text;
-    }
-  },
-
   render: function() {
-    var text = this.trimSummary();
-    var summary = this.findMentions(text);
+    var text = Utils.trimSummary(this.props.issue.body);
+    var summary = Utils.findMentions(text);
 
     if (Array.isArray(summary)) {
       return (

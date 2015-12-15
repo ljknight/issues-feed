@@ -6,8 +6,8 @@ var Spinner = require('react-spin');
 
 var Title = require('./../Title.jsx');
 var IssueFeed = require('./IssueFeed.jsx');
-var Constants = require('./../../Constants.js');
-var APIkey = require('./../../APIkey.js');
+var Constants = require('./../../helpers/Constants.js');
+var APIkey = require('./../../helpers/APIkey.js');
 
 var HomeContainer = React.createClass({
 
@@ -123,6 +123,7 @@ var HomeContainer = React.createClass({
     var currentIssues = [];
     // Get previous API page's issues for displaying
     var prevAPIPageIssues = this.state.prevIssues;
+    console.log()
 
     if (page === 1) {
       for (var i = 0; i < 25; i++) {

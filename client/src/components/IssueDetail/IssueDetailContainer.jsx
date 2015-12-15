@@ -5,8 +5,8 @@ var Spinner = require('react-spin');
 var Title = require('./../Title.jsx');
 var IssueDetail = require('./IssueDetail.jsx');
 var CommentFeed = require('./CommentFeed.jsx');
-var Constants = require('./../../Constants.js');
-var APIkey = require('./../../APIkey.js');
+var Constants = require('./../../helpers/Constants.js');
+var APIkey = require('./../../helpers/APIkey.js');
 
 var IssueDetailContainer = React.createClass({
   
