@@ -58,3 +58,5 @@ Unit tests have been implemented with Karma and Mocha. Run tests with:
 ```
 npm test
 ```
+
+Feature roadmap can be found [here](https://github.com/ljknight/issues-feed/issues).
