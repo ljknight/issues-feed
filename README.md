@@ -6,8 +6,6 @@
 Just enter the following into the command line, and then travel to http://localhost:8080.
 
 ```
-npm install 
-
 npm start 
 ```
 
