@@ -93,10 +93,6 @@ h1 a {
   clear: both;
 }
 
-.issuefeed-summary, .issuedetail-summary, .commentfeed-summary {
-  white-space: pre-wrap;
-}
-
 /* Issue Feed & Issue Detail View */
 
 .issuefeed-container, .issuedetail-container {
@@ -105,7 +101,7 @@ h1 a {
   width: 75%;
 }
 
-.issuefeed-avatar img, .issuedetail-avatar img, .commentfeed-avatar img {
+.issuefeed-avatar img, .issuedetail-avatar img, .commentfeed-avatar img, .error-avatar img {
   border-radius: 50px;
   float: left;
   height: 100px;
@@ -114,26 +110,26 @@ h1 a {
   width: 100px;
 }
 
-.issuefeed-entrycontent, .issuedetail-entrycontent, .commentfeed-entrycontent {
+.issuefeed-entrycontent, .issuedetail-entrycontent, .commentfeed-entrycontent, .error-entrycontent {
   float: left;
   margin-left: 5%;
   width: 75%;
 }
 
-.issuefeed-number, .issuefeed-title, .issuedetail-title {
+.issuefeed-number, .issuefeed-title, .issuedetail-title, .error-number, .error-title {
   font-weight: 900;
 }
 
-.issuefeed-title, .issuedetail-title {
+.issuefeed-title, .issuedetail-title, .error-title {
   margin-bottom: 1%;
 }
 
-.issuefeed-title a, .issuedetail-title a {
+.issuefeed-title a, .issuedetail-title a, .error-title {
   color: #000;
   font-size: 2em;
 }
 
-.issuefeed-username, .issuedetail-username {
+.issuefeed-username, .issuedetail-username, .error-username {
   font-size: 1.4em;
   font-weight: 600;
   margin-bottom: 5%;
@@ -167,12 +163,12 @@ h1 a {
 
 .issuefeed-summary, .issuedetail-summary, .commentfeed-summary {
   clear: both;
-  
+  white-space: pre-wrap;
 }
 
 .issuefeed-label, .issuefeed-summary, .issuedetail-label, .issuedetail-summary, .commentfeed-summary {
   color: #666;
-  font-size: 0.9em;
+  font-size: 1em;
 }
 
 /* Issue Feed View */
@@ -253,7 +249,7 @@ h1 a {
 
 .pagination a {
   color: #666;
-  font-size: 0.9em;
+  font-size: 1em;
   font-weight: 700;
 }
 
@@ -263,4 +259,10 @@ h1 a {
 
 .next {
   right: 0;
+}
+
+/* Error View */
+
+.error-userlink {
+  color: #3097f4;
 }

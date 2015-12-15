@@ -17,7 +17,8 @@ var HomeContainer = React.createClass({
       issues: [],
       prevIssues: [],
       page: Number(this.props.params.page) || 1,
-      lastPage: ''
+      lastPage: '',
+      error: []
     };
   },
 
@@ -53,7 +54,7 @@ var HomeContainer = React.createClass({
     // If page doesn't exist
     if (page > this.state.lastPage || page < 1) {
       this.setState({
-        issues: [{
+        error: [{
           title: 'nothin\' here',
           number: 404,
           user: {
@@ -64,6 +65,11 @@ var HomeContainer = React.createClass({
           id: 1
         }],
       });
+      
+      $('.prev').hide();
+      $('.next').hide();
+      $('.pagination-nav').hide();
+      
       return;
     }
 
@@ -201,7 +207,7 @@ var HomeContainer = React.createClass({
           <div className='spinner'>
             <Spinner config={constants.spinCfg} />
           </div>
-          <IssueFeed issues={this.state.issues} />
+          <IssueFeed issues={this.state.issues} error={this.state.error} />
           <nav className='pagination-nav'>
             <ul className='pagination'>
               <li className='prev' onClick={this.paginate.bind(this,'prev')}><Link to={`/page/${currPage - 1}`}> Previous</Link></li>

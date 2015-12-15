@@ -6,7 +6,7 @@ var Title = React.createClass({
   render: function(){
     return (
       <header>
-        <h1><Link to={`/`}>npm/issues</Link></h1>
+        <h1>npm/issues</h1>
       </header>
     )
   }
