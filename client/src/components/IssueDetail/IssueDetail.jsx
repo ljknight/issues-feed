@@ -34,7 +34,7 @@ var IssueTitle = React.createClass({
   
   render: function() {
     return (
-     <div className='issuedetail-title'><a href={this.props.issue.html_url} target='window'>{this.props.issue.title}</a></div>
+     <h3 className='issuedetail-title'><a href={this.props.issue.html_url} target='window'>{this.props.issue.title}</a></h3>
     )
   }
 });
@@ -66,7 +66,7 @@ var IssueLabels = React.createClass({
       return (
         <ul className='issuedetail-labels'>
           {labels.map(function(label, i) {
-            return <li className='issuefeed-label' key={i}>{label.name}</li>
+            return <li className='issuedetail-label' key={i}>{label.name}</li>
           })}
         </ul>
       )      
@@ -85,19 +85,19 @@ var IssueSummary = React.createClass({
 
     if (Array.isArray(summary)) {
       return (
-        <div className='commentfeed-summary'>
+        <p className='issuedetail-summary'>
           {summary.map(function(segment, i) {
             if (segment.nodeName === '#text') {
               return <span key={i}>{segment.textContent}</span>
             } else {
-              return <a key={i} href={segment.href} className='mention'>{segment.innerHTML}</a>
+              return <a key={i} href={segment.href} className='mention' target='window'>{segment.innerHTML}</a>
             }
           })} 
-        </div>
+        </p>
       )
     } else {
       return (
-        <div className='commentfeed-summary'>{summary}</div>
+        <p className='issuedetail-summary'>{summary}</p>
       )    
     }
   }

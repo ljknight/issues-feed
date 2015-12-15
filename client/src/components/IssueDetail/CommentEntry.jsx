@@ -41,19 +41,19 @@ var CommentSummary = React.createClass({
 
     if (Array.isArray(summary)) {
       return (
-        <div className='commentfeed-summary'>
+        <p className='commentfeed-summary'>
           {summary.map(function(segment, i) {
             if (segment.nodeName === '#text') {
               return <span key={i}>{segment.textContent}</span>
             } else {
-              return <a key={i} href={segment.href} className='mention'>{segment.innerHTML}</a>
+              return <a key={i} href={segment.href} className='mention' target='window'>{segment.innerHTML}</a>
             }
           })} 
-        </div>
+        </p>
       )
     } else {
       return (
-        <div className='commentfeed-summary'>{summary}</div>
+        <p className='commentfeed-summary'>{summary}</p>
       )    
     }
   }

@@ -32,7 +32,9 @@
   },
   "scripts": {
     "test": "karma start karma.config.js",
-    "start": "webpack-dev-server --inline --hot --content-base client/"
+    "dev": "webpack-dev-server --inline --hot --content-base client/",
+    "watch": "webpack --watch",
+    "start": "webpack-dev-server --inline -p --content-base client/"
   },
   "author": "Laura Knight",
   "license": "ISC"

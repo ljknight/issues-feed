@@ -50,6 +50,23 @@ var HomeContainer = React.createClass({
   },
 
   paginate:function(page) {
+    // If page doesn't exist
+    if (page > this.state.lastPage || page < 1) {
+      this.setState({
+        issues: [{
+          title: 'nothin\' here',
+          number: 404,
+          user: {
+            login: 'sorry',
+            avatar_url: 'https://d30y9cdsu7xlg0.cloudfront.net/png/17361-200.png'
+          },
+          body: '',
+          id: 1
+        }],
+      });
+      return;
+    }
+
     var nextPage = Number(this.state.page) + 1;
     var prevPage = Number(this.state.page) - 1;
     var prevAPIPage;
@@ -59,14 +76,17 @@ var HomeContainer = React.createClass({
 
     var setPages = function(pageToSet) {
       step = Math.ceil(pageToSet/6);
-      prevAPIPage = pageToSet - step;
+      if (pageToSet % 6 === 1) {
+        prevAPIPage = pageToSet - step + 1;        
+      } else {
+        prevAPIPage = pageToSet - step;
+      }
       APIpage = pageToSet - step + 1;
       // Set new current page
       this.setState({
         page: pageToSet
       });
     };
-
 
     if (page === 1) {
       this.getIssues(page);
@@ -84,22 +104,16 @@ var HomeContainer = React.createClass({
   },
 
   getPrevIssues: function(prevAPIPage, APIpage) {
-    console.log(prevAPIPage, APIpage)
     // Get previous page's issues in background for pagination
     $.ajax({
       url: 'https://api.github.com/repos/npm/npm/issues?order=desc&page=' + prevAPIPage + '&' + APIkey,
       dataType: 'json',
-      success: function(data, status, request) {
+      success: function(data) {
         this.setState({
           prevIssues: data
         });
         // Chained call to catch both async responses
-        if (this.state.page !== this.state.lastPage) {
-          this.getIssues(APIpage);
-        } else {
-          // If on last page, only need to load prevAPIPage issues
-          this.showIssues(prevAPIPage);
-        }
+        this.getIssues(APIpage);
       }.bind(this),
       error: function(xhr, status, err) {
         console.error(this.props.url, status, err.toString());
@@ -111,7 +125,7 @@ var HomeContainer = React.createClass({
     $.ajax({
       url: 'https://api.github.com/repos/npm/npm/issues?order=desc&page=' + APIpage + '&' + APIkey,
       dataType: 'json',
-      success: function(data, status, request) {
+      success: function(data) {
         this.showIssues(data);
       }.bind(this),
       error: function(xhr, status, err) {
@@ -131,14 +145,10 @@ var HomeContainer = React.createClass({
       for (var i = 0; i < 25; i++) {
         currentIssues.push(currAPIPageIssues[i]);
       }
-   
-    } else if (page === this.state.lastPage) {
-      currentIssues = prevAPIPageIssues;
     
     } else {  
       // Lookup tells us which items on those pages we need
       var lookup = constants.issuesPerPage[page % 6];
-      console.log(lookup)
       
       var get25 = function(obj) {
         var prevPageArr = obj.prevPage;
@@ -146,18 +156,21 @@ var HomeContainer = React.createClass({
 
         // First add issues from prev API page
         for (var i = prevPageArr[0]; i <= prevPageArr[1]; i++) {
-          currentIssues.push(prevAPIPageIssues[i]);
+          if (prevAPIPageIssues[i]){
+            currentIssues.push(prevAPIPageIssues[i]);
+          }
         }
 
         // Add issues from current API page
         if (pageArr) {
           for (var j = pageArr[0]; j <= pageArr[1]; j++) {
-            currentIssues.push(currAPIPageIssues[j]);
+            if (currAPIPageIssues[j]) {
+              currentIssues.push(currAPIPageIssues[j]);
+            }
           }
         }
       };
       get25(lookup);
-      console.log(currentIssues)
     }
 
     // Set new issues to render page

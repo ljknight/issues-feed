@@ -1,5 +1,4 @@
 var React = require('react');
-var $ = require('jQuery');
 var Link = require('react-router').Link;
 var utils = require('./../../helpers/utils.js');
 
@@ -37,7 +36,7 @@ var IssueNumber = React.createClass({
   
   render: function() {
     return (
-      <div className='issuefeed-number'>#{this.props.issue.number}</div>
+      <span className='issuefeed-number'>#{this.props.issue.number}</span>
     )
   }
 });
@@ -47,7 +46,7 @@ var IssueTitle = React.createClass({
   
   render: function() {
     return (
-     <div className='issuefeed-title'><Link to={`/issue/${this.props.issue.number}`}>{this.props.issue.title}</Link></div>
+     <h3 className='issuefeed-title'><Link to={`/issue/${this.props.issue.number}`}>{this.props.issue.title}</Link></h3>
     )
   }
 });
@@ -66,13 +65,19 @@ var IssueLabels = React.createClass({
   render: function() {
     var labels = this.props.issue.labels;
 
-    return (
-      <ul className='issuefeed-labels'>
-        {labels.map(function(label, i) {
-          return <li className='issuefeed-label' key={i}>{label.name}</li>
-        })}
-      </ul>
-    )      
+    if (labels !== undefined) {
+      return (
+        <ul className='issuefeed-labels'>
+          {labels.map(function(label, i) {
+            return <li className='issuefeed-label' key={i}>{label.name}</li>
+          })}
+        </ul>
+      )      
+    } else {
+      return (
+        <ul className='issuefeed-labels'></ul>
+      )
+    }
   }
 });
 
@@ -84,19 +89,19 @@ var IssueSummary = React.createClass({
 
     if (Array.isArray(summary)) {
       return (
-        <div className='commentfeed-summary'>
+        <p className='issuefeed-summary'>
           {summary.map(function(segment, i) {
             if (segment.nodeName === '#text') {
               return <span key={i}>{segment.textContent}</span>
             } else {
-              return <a key={i} href={segment.href} className='mention'>{segment.innerHTML}</a>
+              return <a key={i} href={segment.href} className='mention' target='window'>{segment.innerHTML}</a>
             }
           })} 
-        </div>
+        </p>
       )
     } else {
       return (
-        <div className='commentfeed-summary'>{summary}</div>
+        <p className='issuefeed-summary'>{summary} <span className='issuefeed-summary-readmore'><Link to={`/issue/${this.props.issue.number}`}>(More)</Link></span></p>
       )    
     }
   }

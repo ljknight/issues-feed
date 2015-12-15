@@ -5,6 +5,7 @@ var Utils = {
   // Find @mentions and replace with link
   findMentions: function(text) {
     if (text.indexOf('@') !== -1) {
+      // Find words that begin with @
       var reg = /(?:^|\W)@(\w+)(?!\w)/g;
       text = text.replace(reg, function(_, $1, $2) {
 

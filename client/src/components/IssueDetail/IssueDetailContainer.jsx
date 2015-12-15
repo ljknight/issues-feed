@@ -36,7 +36,7 @@ var IssueDetailContainer = React.createClass({
     $.ajax({
       url: 'https://api.github.com/repos/npm/npm/issues/' + this.state.issueId + '?' + APIkey,
       dataType: 'json',
-      success: function(data, status, request) {
+      success: function(data) {
         this.setState({
           issue: [data],
           commentCount: data.comments,
@@ -53,7 +53,7 @@ var IssueDetailContainer = React.createClass({
     $.ajax({
       url: 'https://api.github.com/repos/npm/npm/issues/' + this.state.issueId + '/comments?' + APIkey,
       dataType: 'json',
-      success: function(data, status, request) {
+      success: function(data) {
         this.setState({
           comments: data
         });          

@@ -4,8 +4,6 @@ var React = require('react');
 // React Router
 var Router = require('react-router').Router;
 var Route = require('react-router').Route;
-var DefaultRoute = Router.DefaultRoute;
-var Link = require('react-router').Link;
 var createHistory = require('history/lib/createHashHistory');
 
 // Modules
