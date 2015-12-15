@@ -1,6 +1,6 @@
 # npm/npm Github Issues Feed
 
-![npm/npm issues](./client/assets/screenshot_homepage.png)
+![Homepage gif](./client/assets/homefeed.gif)
 
 ## Usage
 Just enter the following into the command line, and then travel to http://localhost:8080.
@@ -16,11 +16,13 @@ Browse through all the issues from the npm/npm repo. The home feed displays 25 i
 
 Open up an issue to view the current state of the issue, the full summary, and any comments. Access the original issue on github.com by clicking on the title.
 
+![Issue Detail gif](./client/assets/issuedetail.gif)
+
 On any page, visit authors' Github profiles by clicking on their username or an @mention.
 
 If you run into a page that doesn't exist, we'll let you know.
 
-![npm/npm issues](./client/assets/screenshot_404.png)
+![404 screenshot](./client/assets/screenshot_404.png)
 
 ## Notes About the Implementation
 The npm/npm Github Issues Feed was built using React, React Router for routing, Webpack for builds and a simple server. The issues were pulled from the Github Issues API, and small searches were done with the Github Search API.
