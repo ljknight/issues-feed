@@ -1,5 +1,5 @@
 var React = require('react');
-var Utils = require('./../../helpers/Utils.js');
+var utils = require('./../../helpers/utils.js');
 
 var IssueDetail = React.createClass({
   
@@ -81,7 +81,7 @@ var IssueLabels = React.createClass({
 var IssueSummary = React.createClass({
 
   render: function() {
-    var summary = Utils.findMentions(this.props.issue.body);
+    var summary = utils.findMentions(this.props.issue.body);
 
     if (Array.isArray(summary)) {
       return (

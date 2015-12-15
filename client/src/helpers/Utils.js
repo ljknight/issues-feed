@@ -7,8 +7,9 @@ var Utils = {
     if (text.indexOf('@') !== -1) {
       var reg = /(?:^|\W)@(\w+)(?!\w)/g;
       text = text.replace(reg, function(_, $1, $2) {
+
         var route = 'http://www.github.com/' + $1;
-        return '<a href=' + route + '>' + _ + '</a>' + text[$2];
+        return '<a href=' + route + '>' + _ + '</a>';
       });
 
       return $.parseHTML(text);
@@ -51,6 +52,18 @@ var Utils = {
     }
 
     return summary;
+  },
+
+  loadSpinner: function() {
+    var $loading = $('.spinner');
+
+    $(document)
+      .ajaxStart(function () {
+        $loading.show();
+      })
+      .ajaxStop(function () {
+        $loading.hide();
+      });
   }
 
 };

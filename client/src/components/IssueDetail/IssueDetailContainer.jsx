@@ -5,7 +5,8 @@ var Spinner = require('react-spin');
 var Title = require('./../Title.jsx');
 var IssueDetail = require('./IssueDetail.jsx');
 var CommentFeed = require('./CommentFeed.jsx');
-var Constants = require('./../../helpers/Constants.js');
+var constants = require('./../../helpers/constants.js');
+var utils = require('./../../helpers/utils.js');
 var APIkey = require('./../../helpers/APIkey.js');
 
 var IssueDetailContainer = React.createClass({
@@ -64,22 +65,14 @@ var IssueDetailContainer = React.createClass({
   },
 
   render: function() {
-    var $loading = $('.spinner');
-
-    $(document)
-      .ajaxStart(function () {
-        $loading.show();
-      })
-      .ajaxStop(function () {
-        $loading.hide();
-      });
+    utils.loadSpinner();
 
     return (
       <main className='issuedetail-page'>
         <Title />
         <div className='issuedetail-container'>
           <div className='spinner'>
-            <Spinner config={Constants.spinCfg} />
+            <Spinner config={constants.spinCfg} />
           </div>
           <IssueDetail issue={this.state.issue} />
           <CommentFeed comments={this.state.comments} />

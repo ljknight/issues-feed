@@ -20,6 +20,31 @@ var Constants = {
     shadow: false,
     hwaccel: false,
     position: 'absolute'
+  },
+  // Patterns for pagination
+  issuesPerPage: {
+    1: {
+      prevPage: [0, 24]
+    },
+    2: {
+      prevPage: [25, 29],
+      page: [0, 19]
+    },
+    3: {
+      prevPage: [20, 29],
+      page: [0, 14]
+    },
+    4: {
+      prevPage: [15, 29],
+      page: [0, 9]
+    },
+    5: {
+      prevPage: [10, 29],
+      page: [0, 4]
+    },
+    0: {
+      prevPage: [5, 29]
+    }
   }
 };
 

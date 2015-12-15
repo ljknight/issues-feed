@@ -1,7 +1,7 @@
 var React = require('react');
 var $ = require('jQuery');
 var Link = require('react-router').Link;
-var Utils = require('./../../helpers/Utils.js');
+var utils = require('./../../helpers/utils.js');
 
 var IssueEntry = React.createClass({
   
@@ -79,8 +79,8 @@ var IssueLabels = React.createClass({
 var IssueSummary = React.createClass({
 
   render: function() {
-    var text = Utils.trimSummary(this.props.issue.body);
-    var summary = Utils.findMentions(text);
+    var text = utils.trimSummary(this.props.issue.body);
+    var summary = utils.findMentions(text);
 
     if (Array.isArray(summary)) {
       return (

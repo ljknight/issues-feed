@@ -6,7 +6,8 @@ var Spinner = require('react-spin');
 
 var Title = require('./../Title.jsx');
 var IssueFeed = require('./IssueFeed.jsx');
-var Constants = require('./../../helpers/Constants.js');
+var constants = require('./../../helpers/constants.js');
+var utils = require('./../../helpers/utils.js');
 var APIkey = require('./../../helpers/APIkey.js');
 
 var HomeContainer = React.createClass({
@@ -66,6 +67,7 @@ var HomeContainer = React.createClass({
       });
     };
 
+
     if (page === 1) {
       this.getIssues(page);
       return;
@@ -82,9 +84,10 @@ var HomeContainer = React.createClass({
   },
 
   getPrevIssues: function(prevAPIPage, APIpage) {
+    console.log(prevAPIPage, APIpage)
     // Get previous page's issues in background for pagination
     $.ajax({
-      url: 'https://api.github.com/repos/npm/npm/issues?page=' + APIpage + '&' + APIkey,
+      url: 'https://api.github.com/repos/npm/npm/issues?order=desc&page=' + prevAPIPage + '&' + APIkey,
       dataType: 'json',
       success: function(data, status, request) {
         this.setState({
@@ -106,7 +109,7 @@ var HomeContainer = React.createClass({
 
   getIssues: function(APIpage) {
     $.ajax({
-      url: 'https://api.github.com/repos/npm/npm/issues?page=' + APIpage + '&' + APIkey,
+      url: 'https://api.github.com/repos/npm/npm/issues?order=desc&page=' + APIpage + '&' + APIkey,
       dataType: 'json',
       success: function(data, status, request) {
         this.showIssues(data);
@@ -123,44 +126,19 @@ var HomeContainer = React.createClass({
     var currentIssues = [];
     // Get previous API page's issues for displaying
     var prevAPIPageIssues = this.state.prevIssues;
-    console.log()
 
     if (page === 1) {
       for (var i = 0; i < 25; i++) {
         currentIssues.push(currAPIPageIssues[i]);
       }
+   
     } else if (page === this.state.lastPage) {
       currentIssues = prevAPIPageIssues;
-    } else {
-
-      // Patterns for pagination
-      var issuesPerPage = {
-        1: {
-          prevPage: [0,24]
-        },
-        2: {
-          prevPage: [25,29],
-          page: [0,19]
-        },
-        3: {
-          prevPage: [20,29],
-          page: [0,14]
-        },
-        4: {
-          prevPage: [15,29],
-          page: [0,9]
-        },
-        5: {
-          prevPage: [10,29],
-          page: [0,4]
-        },
-        0: {
-          prevPage: [5,29]
-        }
-      };
-
+    
+    } else {  
       // Lookup tells us which items on those pages we need
-      var lookup = issuesPerPage[page % 6];
+      var lookup = constants.issuesPerPage[page % 6];
+      console.log(lookup)
       
       var get25 = function(obj) {
         var prevPageArr = obj.prevPage;
@@ -178,8 +156,8 @@ var HomeContainer = React.createClass({
           }
         }
       };
-
       get25(lookup);
+      console.log(currentIssues)
     }
 
     // Set new issues to render page
@@ -189,7 +167,6 @@ var HomeContainer = React.createClass({
   },
 
   render: function() { 
-    var $loading = $('.spinner');
     var currPage = Number(this.state.page);
 
     // Hide prev link on first page & next on last page
@@ -202,21 +179,14 @@ var HomeContainer = React.createClass({
       $('.next').show();
     }
 
-    // Spinner
-    $(document)
-      .ajaxStart(function () {
-        $loading.show();
-      })
-      .ajaxStop(function () {
-        $loading.hide();
-      });
+    utils.loadSpinner();
 
     return (
       <main className='home-page'>
         <Title />
         <div className='issuefeed-container'>
           <div className='spinner'>
-            <Spinner config={Constants.spinCfg} />
+            <Spinner config={constants.spinCfg} />
           </div>
           <IssueFeed issues={this.state.issues} />
           <nav className='pagination-nav'>

@@ -1,5 +1,5 @@
 var React = require('react');
-var Utils = require('./../../helpers/Utils.js');
+var utils = require('./../../helpers/utils.js');
 
 var CommentEntry = React.createClass({
   
@@ -37,7 +37,7 @@ var CommentUsername = React.createClass({
 var CommentSummary = React.createClass({
 
   render: function() {
-    var summary = Utils.findMentions(this.props.comment.body);
+    var summary = utils.findMentions(this.props.comment.body);
 
     if (Array.isArray(summary)) {
       return (
