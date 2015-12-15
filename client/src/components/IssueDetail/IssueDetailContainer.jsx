@@ -33,16 +33,14 @@ var IssueDetailContainer = React.createClass({
 
   getIssue: function() {
     $.ajax({
-      url: 'https://api.github.com/repos/npm/npm/issues/' + this.state.issueId + '&' + APIkey,
+      url: 'https://api.github.com/repos/npm/npm/issues/' + this.state.issueId + '?' + APIkey,
       dataType: 'json',
       success: function(data, status, request) {
-        if (this.isMounted()) {
-          this.setState({
-            issue: [data],
-            commentCount: data.comments,
-            commentURL: data.comments_url
-          });          
-        }
+        this.setState({
+          issue: [data],
+          commentCount: data.comments,
+          commentURL: data.comments_url
+        });          
       }.bind(this),
       error: function(xhr, status, err) {
         console.error(this.props.url, status, err.toString());
@@ -55,11 +53,9 @@ var IssueDetailContainer = React.createClass({
       url: 'https://api.github.com/repos/npm/npm/issues/' + this.state.issueId + '/comments?' + APIkey,
       dataType: 'json',
       success: function(data, status, request) {
-        if (this.isMounted()) {
-          this.setState({
-            comments: data
-          });          
-        }
+        this.setState({
+          comments: data
+        });          
       }.bind(this),
       error: function(xhr, status, err) {
         console.error(this.props.url, status, err.toString());
