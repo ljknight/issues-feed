@@ -242,7 +242,7 @@ h1 a {
 
 .pagination-nav {
   margin-bottom: 10%;
-  overflow: hidden;
+  /*overflow: hidden;*/
   position: relative;
 }
 
@@ -251,13 +251,18 @@ h1 a {
   float: left;
 }
 
-.pagination li:last-child {
-  position: absolute;
-  right : 0;
-}
-
 .pagination a {
   color: #999;
   font-size: 0.9em;
   font-weight: 700;
+}
+
+.prev {
+  left: 0;
+  position: absolute;
+}
+
+.next {
+  position: absolute;
+  right: 0;
 }
