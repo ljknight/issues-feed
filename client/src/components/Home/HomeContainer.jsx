@@ -17,7 +17,6 @@ var HomeContainer = React.createClass({
       prevIssues: [],
       data: [],
       page: this.props.params.page || 1,
-      lastPage: ''
     };
   },
 
@@ -37,34 +36,27 @@ var HomeContainer = React.createClass({
     var APIpage;
 
     // Step tells us how many API pages back we need to look
-    var step = Math.ceil(page/6);
+    var step;
+
+    var setPages = function(pageToSet) {
+      step = Math.ceil(pageToSet/6);
+      prevAPIPage = pageToSet - step;
+      APIpage = pageToSet - step + 1;
+      // Set new current page
+      this.setState({
+        page: pageToSet
+      });
+    };
 
     if (page === 1) {
       this.getIssues(page);
       return;
     } else if (page === 'next') {
-      prevAPIPage = nextPage - step;
-      APIpage = nextPage - step + 1;
-      // Set new current page
-      this.setState({
-        page: nextPage
-      });
-
+      setPages.call(this, nextPage);
     } else if (page === 'prev') {
-      prevAPIPage = prevPage - step;
-      APIpage = prevPage - step + 1;
-      // Set new current page
-      this.setState({
-        page: prevPage
-      });
-
-    } else {        
-      prevAPIPage = page - step;
-      APIpage = page - step + 1;
-      // Set new current page
-      this.setState({
-        page: page
-      });
+      setPages.call(this, prevPage);
+    } else {     
+      setPages.call(this, page);
     }
     
     // Get issues needed for page 
@@ -99,13 +91,10 @@ var HomeContainer = React.createClass({
       url: 'https://api.github.com/repos/npm/npm/issues?page=' + APIpage + '&' + APIkey,
       dataType: 'json',
       success: function(data, status, request) {
-        // var header = request.getResponseHeader('Link');
-        // var lastPage = this.parseHeaders(header).last;
 
         if (this.isMounted()) {
           this.setState({
             data: data,
-            // lastPage: this.findLastPage(lastPage)
           });
           this.showIssues(data);
         }
@@ -115,36 +104,6 @@ var HomeContainer = React.createClass({
       }.bind(this)
     });
   },
-
-  // Credit: https://gist.github.com/niallo/3109252
-  // parseHeaders: function(header) {
-  //   if (header.length === 0) {
-  //     throw new Error("input must not be of zero length");
-  //   }
-
-  //   // Split parts by comma
-  //   var parts = header.split(',');
-  //   var links = {};
-    
-  //   // Parse each part into a named link
-  //   parts.forEach(function(p) {
-  //     var section = p.split(';');
-  //     if (section.length != 2) {
-  //       throw new Error("section could not be split on ';'");
-  //     }
-  //     var url = section[0].replace(/<(.*)>/, '$1').trim();
-  //     var name = section[1].replace(/rel="(.*)"/, '$1').trim();
-  //     links[name] = url;
-  //   });
-
-  //   return links;
-  
-  // },
-
-  // findLastPage: function(lastLink) {
-  //   var matches = lastLink.match(/page=([^&]*)/);
-  //   return matches[1];
-  // },
 
   // Load 25 per page
   showIssues: function(currAPIPageIssues) {  
@@ -158,7 +117,6 @@ var HomeContainer = React.createClass({
     } else {
       // Get previous API page's issues for displaying
       var prevAPIPageIssues = this.state.prevIssues;
-      console.log(prevAPIPageIssues, currAPIPageIssues)
 
       // Patterns for pagination
       var issuesPerPage = {
@@ -188,7 +146,6 @@ var HomeContainer = React.createClass({
 
       // Lookup tells us which items on those pages we need
       var lookup = issuesPerPage[page % 6];
-      console.log(page, page % 6)
       
       var get25 = function(obj) {
         var prevPageArr = obj.prevPage;
@@ -225,6 +182,9 @@ var HomeContainer = React.createClass({
       $('.prev').hide();
     } else if (currPage === this.state.lastPage) {
       $('.next').hide();
+    } else {
+      $('.prev').show();
+      $('.next').show();
     }
 
     // Spinner

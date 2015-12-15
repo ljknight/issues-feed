@@ -59,7 +59,6 @@ var CommentSummary = React.createClass({
 
   render: function() {
     var summary = this.findMentions(this.props.comment.body);
-    console.log(summary)
 
     return (
       <div className='commentfeed-summary'>{summary}</div>
