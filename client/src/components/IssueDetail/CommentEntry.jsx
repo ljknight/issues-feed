@@ -39,19 +39,13 @@ var CommentSummary = React.createClass({
   // Check for @mentions
   findMentions: function(text) {
     if (text.indexOf('@') !== -1) {
-      var re = /(?:^|\W)@(\w+)(?!\w)/g;
-      var match;
-      var spliceSlice = function(str, index, count, add) {
-        var result = [];
-        result.push(str.slice(0, index), add, str.slice(index + count)) 
-        return result;
-      }
-        
-      while (match = re.exec(text)) {
-        var route = 'http://www.github.com/' + match[1];
-        text = spliceSlice(text, match.index, match[0].length, <span className='mention'><a href={route}>{match[0]}</a></span>)
-      }
-      return text;
+      var reg = /(?:^|\W)@(\w+)(?!\w)/g;
+      var text = text.replace(reg, function(_, $1, $2) {
+        var route = 'http://www.github.com/' + $1;
+        return '<a href='+route+'>'+_+'</a>' + text[$2] 
+      });
+
+      return $.parseHTML(text);
     } else {
       return text;
     }
@@ -60,10 +54,24 @@ var CommentSummary = React.createClass({
   render: function() {
     var summary = this.findMentions(this.props.comment.body);
 
-    return (
-      <div className='commentfeed-summary'>{summary}</div>
-    )
- }
+    if (Array.isArray(summary)) {
+      return (
+        <div className='commentfeed-summary'>
+          {summary.map(function(segment, i) {
+            if (segment.nodeName === '#text') {
+              return <span key={i}>{segment.textContent}</span>
+            } else {
+              return <a key={i} href={segment.href} className='mention'>{segment.innerHTML}</a>
+            }
+          })} 
+        </div>
+      )
+    } else {
+      return (
+        <div className='commentfeed-summary'>{summary}</div>
+      )    
+    }
+  }
 });
 
 module.exports = CommentEntry;

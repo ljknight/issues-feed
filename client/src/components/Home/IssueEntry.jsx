@@ -1,4 +1,5 @@
 var React = require('react');
+var $ = require('jQuery');
 var Link = require('react-router').Link;
 
 var IssueEntry = React.createClass({
@@ -113,33 +114,39 @@ var IssueSummary = React.createClass({
   // Check for @mentions
   findMentions: function(text) {
     if (text.indexOf('@') !== -1) {
-      var re = /(?:^|\W)@(\w+)(?!\w)/g;
-      var match;
-      var spliceSlice = function(str, index, count, add) {
-        var result = [];
-        result.push(str.slice(0, index), add, str.slice(index + count)) 
-        return result;
-      }
-        
-      while (match = re.exec(text)) {
-        var route = 'http://www.github.com/' + match[1];
-        text = spliceSlice(text, match.index, match[0].length, <span className='mention'><a href={route}>{match[0]}</a></span>)
-      }
+      var reg = /(?:^|\W)@(\w+)(?!\w)/g;
+      var text = text.replace(reg, function(_, $1, $2) {
+        var route = 'http://www.github.com/' + $1;
+        return '<a href='+route+'>'+_+'</a>' + text[$2] 
+      });
 
-      return text;
+      return $.parseHTML(text);
     } else {
       return text;
     }
-
   },
 
   render: function() {
     var text = this.trimSummary();
     var summary = this.findMentions(text);
 
-    return (
-      <div className='issuefeed-summary'>{summary} <span className='issuefeed-summary-readmore'><Link to={`/issue/${this.props.issue.number}`}>(More)</Link></span></div>
-    )
+    if (Array.isArray(summary)) {
+      return (
+        <div className='commentfeed-summary'>
+          {summary.map(function(segment, i) {
+            if (segment.nodeName === '#text') {
+              return <span key={i}>{segment.textContent}</span>
+            } else {
+              return <a key={i} href={segment.href} className='mention'>{segment.innerHTML}</a>
+            }
+          })} 
+        </div>
+      )
+    } else {
+      return (
+        <div className='commentfeed-summary'>{summary}</div>
+      )    
+    }
   }
 });
 

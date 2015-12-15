@@ -150,7 +150,7 @@ h1 a {
 }
 
 .issuefeed-label, .issuedetail-label {
-  border: 1px #999 solid;
+  border: 1px #666 solid;
   border-radius: 3px;
   display: inline-block;
   float: left;
@@ -171,7 +171,7 @@ h1 a {
 }
 
 .issuefeed-label, .issuefeed-summary, .issuedetail-label, .issuedetail-summary, .commentfeed-summary {
-  color: #999;
+  color: #666;
   font-size: 0.9em;
 }
 
@@ -234,7 +234,7 @@ h1 a {
   color: #3097f4;
 }
 
-.mention a {
+.mention {
   color: #3097f4;
 }
 
@@ -252,7 +252,7 @@ h1 a {
 }
 
 .pagination a {
-  color: #999;
+  color: #666;
   font-size: 0.9em;
   font-weight: 700;
 }
